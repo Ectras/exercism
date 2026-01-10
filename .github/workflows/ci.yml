@@ -11,7 +11,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0
           ref: ${{ github.head_ref }}
           persist-credentials: true
       - name: Install python
@@ -23,5 +22,4 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_options: "--amend --no-edit"
-          push_options: "--force-with-lease"
+          commit_message: "Flatten folder structure"
