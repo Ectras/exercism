@@ -1,0 +1,23 @@
+on:
+  pull_request:
+jobs:
+  flatten:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - name: Install python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run python script
+        run: python delete_iterations.py python
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_options: "--amend --no-edit"
+          push_options: "--force-with-lease"
