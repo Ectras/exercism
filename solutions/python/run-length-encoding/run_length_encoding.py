@@ -1,40 +1,26 @@
 def decode(string: str) -> str:
-    i = 0
+    counter = 0
     out = []
-    while i < len(string):
-        number_end = i
-        while number_end < len(string) and string[number_end].isdecimal():
-            number_end += 1
-
-        if number_end == i:
-            # There was no number
-            out.append(string[i])
-            i += 1
+    for c in string:
+        if c.isdecimal():
+            counter = counter * 10 + int(c)
         else:
-            # There was a number, read the next char, add it and then skip the whole thing
-            number = int(string[i:number_end])
-            data = string[number_end]
-            out.append(data * number)
-            i += number_end - i + 1
+            out.append(max(1, counter) * c)
+            counter = 0
     return "".join(out)
 
 
 def encode(string: str) -> str:
-    def write_counter(out: list[str], counter: int, char: str):
-        if counter > 1:
-            out.append(f"{counter}{char}")
-        elif counter == 1:
-            out.append(char)
-
-    last_char = "?"
-    counter = 0
+    counter = 1
     out = []
-    for c in string:
-        if c == last_char:
-            counter += 1
-        else:
-            write_counter(out, counter, last_char)
-            last_char = c
+    for i, c in enumerate(string):
+        if i == len(string) - 1 or c != string[i + 1]:
+            # End current run
+            text = c
+            if counter > 1:
+                text = str(counter) + text
+            out.append(text)
             counter = 1
-    write_counter(out, counter, last_char)
+        else:
+            counter += 1
     return "".join(out)
