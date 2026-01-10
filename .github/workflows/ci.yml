@@ -11,6 +11,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
           persist-credentials: true
       - name: Install python
         uses: actions/setup-python@v6
