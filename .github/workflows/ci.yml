@@ -1,11 +1,18 @@
 on:
   pull_request:
+    paths:
+      - "solutions/**"
 jobs:
   flatten:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
       - name: Install python
         uses: actions/setup-python@v6
         with:
@@ -13,8 +20,7 @@ jobs:
       - name: Run python script
         run: python delete_iterations.py python
       - name: Commit changes
-        uses: devops-infra/action-commit-push@v1.0.3
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
-          amend: true
-          no_edit: true
+          commit_options: "--amend --no-edit"
+          push_options: "--force-with-lease"
