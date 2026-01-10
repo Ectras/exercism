@@ -1,5 +1,7 @@
 on:
   pull_request:
+    paths:
+      - "solutions/**"
 jobs:
   flatten:
     permissions:
@@ -9,6 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
+          ref: ${{ github.head_ref }}
           persist-credentials: true
       - name: Install python
         uses: actions/setup-python@v6
