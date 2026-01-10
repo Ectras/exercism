@@ -1,0 +1,20 @@
+on:
+  pull_request:
+jobs:
+  flatten:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run python script
+        run: python delete_iterations.py python
+      - name: Commit changes
+        uses: devops-infra/action-commit-push@v1.0.3
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          amend: true
+          no_edit: true
