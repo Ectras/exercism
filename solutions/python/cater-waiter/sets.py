@@ -1,5 +1,6 @@
 """Functions for compiling dishes and ingredients for a catering company."""
 
+import functools
 from sets_categories_data import (
     VEGAN,
     VEGETARIAN,
@@ -9,8 +10,6 @@ from sets_categories_data import (
     ALCOHOLS,
     SPECIAL_INGREDIENTS,
 )
-
-import functools
 
 
 def clean_ingredients(
@@ -65,8 +64,10 @@ def categorize_dish(dish_name: str, dish_ingredients: set[str]):
         ending = "PALEO"
     elif dish_ingredients <= KETO:
         ending = "KETO"
-    else:
+    elif dish_ingredients <= OMNIVORE:
         ending = "OMNIVORE"
+    else:
+        raise ValueError(f"No known category found for {dish_name}")
     return f"{dish_name}: {ending}"
 
 
