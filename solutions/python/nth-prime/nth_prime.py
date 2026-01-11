@@ -1,16 +1,4 @@
-def isqrt(y: int) -> int:
-    """Integer square root (binary search).
-    Taken from https://en.wikipedia.org/wiki/Integer_square_root"""
-    L = 0  # lower bound of the square root
-    R = y + 1  # upper bound of the square root
-
-    while L != R - 1:
-        M = (L + R) // 2  # midpoint to test
-        if M * M <= y:
-            L = M
-        else:
-            R = M
-    return L
+from math import isqrt
 
 
 def is_prime(number: int) -> bool:
