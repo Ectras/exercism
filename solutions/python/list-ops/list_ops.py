@@ -1,5 +1,4 @@
 from typing import Callable, TypeVar
-from operator import add
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -10,7 +9,7 @@ def append(list1: list[T], list2: list[T]) -> list[T]:
 
 
 def concat(lists: list[list[T]]) -> list[T]:
-    return foldl(add, lists, [])
+    return foldl(append, lists, [])
 
 
 def filter(function: Callable[[T], bool], list: list[T]) -> list[T]:
@@ -18,7 +17,7 @@ def filter(function: Callable[[T], bool], list: list[T]) -> list[T]:
 
 
 def length(list: list[T]) -> int:
-    return len(list)
+    return sum(1 for _ in list)
 
 
 def map(function: Callable[[T], U], list: list[T]) -> list[U]:
