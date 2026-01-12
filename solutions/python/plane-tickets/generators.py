@@ -2,6 +2,8 @@
 
 from typing import Any, Generator
 
+SEATS_PER_ROW = ["A", "B", "C", "D"]
+
 
 def generate_seat_letters(number: int) -> Generator[str, Any, None]:
     """Generate a series of letters for airline seats.
@@ -15,9 +17,8 @@ def generate_seat_letters(number: int) -> Generator[str, Any, None]:
     Example: A, B, C, D
 
     """
-    labels = ["A", "B", "C", "D"]
     for seat in range(number):
-        yield labels[seat % 4]
+        yield SEATS_PER_ROW[seat % len(SEATS_PER_ROW)]
 
 
 def generate_seats(number: int) -> Generator[str, Any, None]:
@@ -36,9 +37,11 @@ def generate_seats(number: int) -> Generator[str, Any, None]:
     Example: 3C, 3D, 4A, 4B
 
     """
-    rows = (1 + seat // 4 + (0 if seat < 12 * 4 else 1) for seat in range(number))
     letters = generate_seat_letters(number)
-    for row, letter in zip(rows, letters):
+    for seat, letter in enumerate(letters):
+        row = 1 + seat // len(SEATS_PER_ROW)
+        if row >= 13:
+            row += 1
         yield f"{row}{letter}"
 
 
