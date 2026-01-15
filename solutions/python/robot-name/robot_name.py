@@ -4,7 +4,7 @@ import string
 
 def random_name() -> str:
     letters = random.choices(string.ascii_uppercase, k=2)
-    digits = [str(random.randint(0, 9)) for _ in range(3)]
+    digits = random.choices(string.digits, k=3)
     return "".join(letters + digits)
 
 
@@ -12,14 +12,15 @@ class Robot:
     used_names = set()
 
     def __init__(self):
-        self.name = ""
-        self.reset()
+        self.name = Robot.find_next_name()
 
     def reset(self):
-        name = ""
+        self.name = Robot.find_next_name()
+
+    @staticmethod
+    def find_next_name() -> str:
         while True:
             name = random_name()
             if name not in Robot.used_names:
                 Robot.used_names.add(name)
-                self.name = name
-                return
+                return name
