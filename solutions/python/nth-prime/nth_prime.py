@@ -2,11 +2,7 @@ from math import isqrt
 
 
 def is_prime(number: int) -> bool:
-    if number == 2:
-        return True
-    if number % 2 == 0:  # Fast check
-        return False
-    for divisor in range(3, isqrt(number) + 1):
+    for divisor in range(2, isqrt(number) + 1):
         if number % divisor == 0:
             return False
     return True
