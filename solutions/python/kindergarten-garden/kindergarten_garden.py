@@ -34,9 +34,5 @@ class Garden:
 
     def plants(self, student: str) -> list[str]:
         idx = self.students.index(student)
-        plants = [
-            self.plant_rows[r][2 * idx + i].name
-            for r in range(len(self.plant_rows))
-            for i in range(2)
-        ]
+        plants = [row[2 * idx + i].name for row in self.plant_rows for i in range(2)]
         return plants
