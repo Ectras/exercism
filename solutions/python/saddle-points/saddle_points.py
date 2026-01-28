@@ -1,13 +1,9 @@
 def saddle_points(matrix: list[list[int]]) -> list[dict[str, int]]:
-    if len(matrix) == 0:
-        return []
+    if any(len(row) != len(matrix[0]) for row in matrix[1:]):
+        raise ValueError("irregular matrix")
 
-    tallest_per_row = []
-    for row in matrix:
-        if len(row) != len(matrix[0]):
-            raise ValueError("irregular matrix")
-        tallest_per_row.append(max(row))
-    shortest_per_col = [min(row[c] for row in matrix) for c in range(len(matrix[0]))]
+    tallest_per_row = [max(row) for row in matrix]
+    shortest_per_col = [min(col) for col in zip(*matrix)]
 
     results = []
     for r, row in enumerate(matrix):
