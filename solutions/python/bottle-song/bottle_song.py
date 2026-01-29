@@ -1,27 +1,20 @@
 COUNTS = [
-    "no",
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-    "ten",
+    "No",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
 ]
 
 
-def bottle(count: int) -> str:
-    return "bottle" + ("s" if count != 1 else "")
-
-
-def verse(bottles: int) -> list[str]:
-    first = f"{COUNTS[bottles].title()} green {bottle(bottles)} hanging on the wall,"
-    second = "And if one green bottle should accidentally fall,"
-    third = f"There'll be {COUNTS[bottles - 1]} green {bottle(bottles - 1)} hanging on the wall."
-    return [first, first, second, third]
+def bottles(count: int) -> str:
+    return f"{COUNTS[count]} green bottle" + ("s" if count != 1 else "")
 
 
 def recite(start: int, take: int = 1) -> list[str]:
@@ -29,5 +22,8 @@ def recite(start: int, take: int = 1) -> list[str]:
     for s in range(start, start - take, -1):
         if s < start:
             out.append("")
-        out += verse(s)
+        out.append(f"{bottles(s)} hanging on the wall,")
+        out.append(f"{bottles(s)} hanging on the wall,")
+        out.append("And if one green bottle should accidentally fall,")
+        out.append(f"There'll be {bottles(s - 1).lower()} hanging on the wall.")
     return out
