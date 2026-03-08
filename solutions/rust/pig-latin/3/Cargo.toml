@@ -1,0 +1,8 @@
+[package]
+edition = "2021"
+name = "pig-latin"
+version = "1.0.0"
+
+[dependencies]
+lazy_static = "1.4.0"
+regex = "1.10.4"
